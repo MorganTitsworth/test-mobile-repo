@@ -36,6 +36,8 @@ export default function RootLayout() {
       <AuthProvider>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="test/(tabs)" options={{ title: "test" }} />
+          <Stack.Screen name="test/testAgain/(tabs)" options={{ title: "testAgain" }} />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />

@@ -18,6 +18,7 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "@/providers/authContext";
 import { Button, TextInput } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { Link } from "expo-router";
 declare interface user {
   firstName: string;
   lastName: string;
@@ -55,6 +56,9 @@ export default function HomeScreen() {
       }
     >
       <ThemedView style={styles.titleContainer}>
+        <Link href="../test" style={styles.button}>
+          Go to TEST screen
+        </Link>
         <ThemedText type="title">Create Account</ThemedText>
         <TextInput style={styles.input} value={email} onChangeText={setEmail} />
         <TextInput
@@ -77,9 +81,7 @@ export default function HomeScreen() {
         />
         <Button title="Sign Out" onPress={signOut} />
         {authState.user && (
-          <ThemedText type="title">
-            Welcome, {authState.user.email}!
-          </ThemedText>
+          <ThemedText type="title">Welcome, {authState.user.email}!</ThemedText>
         )}
         {users.length > 0 && (
           <ThemedView>
@@ -98,6 +100,23 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  titleContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 8,
+    ...Platform.select({
+      android: {
+        backgroundColor: 'green',
+      },
+      ios: {
+        backgroundColor: 'red',
+      },
+      default: {
+        // other platforms, web for example
+        backgroundColor: 'blue',
+      },
+    }),
+  },
   input: {
     height: 40,
     margin: 12,
@@ -105,11 +124,6 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 200,
     color: "black",
-  },
-  titleContainer: {
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 8,
   },
   stepContainer: {
     gap: 8,
@@ -121,5 +135,10 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: "absolute",
+  },
+  button: {
+    fontSize: 20,
+    textDecorationLine: 'underline',
+    color: 'white',
   },
 });
